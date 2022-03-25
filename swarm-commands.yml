@@ -1,0 +1,45 @@
+Inicialização e adição de máquinas no cluster:
+  - docker swarm init --advertise-addr <host-ip>
+  - docker swarm join-token <role>
+
+Multi-manager cluster:
+  - docker swarm join-token manager
+
+Lista os nós do meu cluster:
+  - docker node ls
+  - docker node ls --format "{{.Hostname}} {{.ManagerStatus}}"
+
+Remove um nó do meu cluster:
+  # Os serviços rodando nele precisam ser parados
+  - docker node rm <node_id>
+  - docker node rm $(docker service ls <"-q" para todos ids>)
+
+Lista serviços, stacks, serviços e stacks:
+  - docker stack ls
+  - docker service ls
+  - docker service ps <TASK_ID>
+
+Update e criação de serviços:
+  # Cria um serviço direcionado a um hostname, porta e imagem
+  - docker service create --hostname <HOSTNAME> -p <PORT_ACCESS_HOST:PORT_SERVICE> <IMAGE>
+  # Scaling up baseado no número de regras
+  - docker service update --replicas <NUMBER_OF_REPLICAS> <TASK_ID>
+  - docker service scale <TASK_ID>=<NUMBER_OF_REPLICAS>
+  # Restrição de serviços e nós
+  - docker node update --availability drain <NODE_ID>
+  # Restrição de serviços direcionando nós
+  - docker service update --constraint-add node.role==worker <SERVICE_ID>
+
+Gerenciamento de networks:
+  - docker network create -d overlay <NETWORK_NAME>
+  - docker service create --name <SERVICE_NAME> --network <NETWORK_NAME> --replicas <NUMBER_OF_REPLICAS> <IMAGE>
+
+Script de backup:
+  - <<EOF 
+    /!bin/bash
+    cp -r /var/lib/docker/swarm/* ./$1 #destino da cópia
+  EOF
+  # Forçando novo cluster a usar as configurações do backup
+  - docker swarm --force-new-cluster <BACKUP_PATH>
+
+## Definição de roles
