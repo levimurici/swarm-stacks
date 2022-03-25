@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  api:
+    image: dendebaiano/suricato-api:1.2
+    ports:
+     - 3000:3000
+    networks:
+     - rede-suricato
+    depends_on:
+    - broker
+    - node-red
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == worker]
+
+volumes:
+  node-red-data:
+
+networks:
+  rede-suricato:
+    driver: overlay
+
