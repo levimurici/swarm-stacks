@@ -2,7 +2,7 @@ version: "3"
 
 services:  
   node-red:
-    image: dendebaiano/suricato-nodered:1.5
+    image: dendebaiano/suricato-nodered:1.1.1
     ports:
       - "1880:1880"
     volumes:
