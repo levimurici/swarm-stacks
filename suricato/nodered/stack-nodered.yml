@@ -9,7 +9,7 @@ services:
       - node-red-data:/data
     user: "0"
     networks:
-      - rede-suricato
+      - suricato-network
     depends_on:
       - broker
     deploy:
@@ -24,6 +24,6 @@ volumes:
   node-red-data:
 
 networks:
-  rede-suricato:
+  suricato-network:
     driver: overlay
 

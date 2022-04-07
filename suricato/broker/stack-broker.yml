@@ -4,7 +4,7 @@ services:
   broker:
     image: dendebaiano/suricato-mqtt:v1.6.9
     networks:
-      - rede-suricato
+      - suricato-network
     ports:
       - "1883:1883"
       - "9001:9001"
@@ -18,6 +18,6 @@ volumes:
   node-red-data:
 
 networks:
-  rede-suricato:
+  suricato-network:
     driver: overlay
 

@@ -1,7 +1,7 @@
 Inicialização e adição de máquinas no cluster:
   - docker swarm init --advertise-addr <host-ip>
   - docker swarm join-token <role>
-  - docker swarm init --default-addr-pool 10.0.0.255/16 --default-addr-pool-mask-length 26 --advertise-addr <host-ip>
+  - docker swarm init --default-addr-pool 10.0.0.1/16 --availability drain --default-addr-pool-mask-length 26 --advertise-addr <host-ip>
 
 Multi-manager cluster:
   - docker swarm join-token manager
@@ -30,6 +30,9 @@ Update e criação de serviços:
   - docker node update --availability drain <NODE_ID>
   # Restrição de serviços direcionando nós
   - docker service update --constraint-add node.role==worker <SERVICE_ID>
+  # 
+  - docker service ps <TASK_ID> --no-trunc
+
 
 Update e criação de serviços:
   - docker stack deploy -c <STACK_PATH> <SERVICE_NAME>

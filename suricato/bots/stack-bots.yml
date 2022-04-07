@@ -2,11 +2,13 @@ version: "3"
 
 services:
   wd-bot:
-    image: dendebaiano/suricato-wd-bot:1.0
+    image: dendebaiano/suricato-wd-bot:1.1.0
     ports:
      - 6969:6969
     networks:
-     - rede-suricato
+     - suricato-network
+    dns:
+     - 8.8.8.8
     depends_on:
     - api
     - node-red
@@ -23,7 +25,9 @@ services:
     ports:
      - 6868:6868
     networks:
-     - rede-suricato
+     - suricato-network
+    dns:
+     - 8.8.8.8
     depends_on:
     - api
     - node-red
@@ -39,6 +43,6 @@ volumes:
   node-red-data:
 
 networks:
-  rede-suricato:
+  suricato-network:
     driver: overlay
 

@@ -2,11 +2,11 @@ version: "3"
 
 services:
   api:
-    image: dendebaiano/suricato-api:1.3.1
+    image: dendebaiano/suricato-api:1.3.4
     ports:
      - 3000:3000
     networks:
-     - rede-suricato
+     - suricato-network
     depends_on:
     - broker
     - node-red
@@ -21,6 +21,6 @@ volumes:
   node-red-data:
 
 networks:
-  rede-suricato:
+  suricato-network:
     driver: overlay
 
